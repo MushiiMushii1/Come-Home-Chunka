@@ -1,4 +1,3 @@
-``html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,12 +54,19 @@
     background:radial-gradient(circle, rgba(232,161,61,.16) 0%, rgba(232,161,61,0) 62%);
     pointer-events:none;
   }
+  /* scrim so the text never blends into the photo */
+  .hero-scrim{
+    position:absolute;inset:0;
+    background:linear-gradient(90deg, rgba(16,26,21,.92) 0%, rgba(16,26,21,.72) 42%, rgba(16,26,21,.15) 75%, rgba(16,26,21,0) 100%);
+    pointer-events:none;
+  }
   .hero-inner{position:relative;z-index:2;padding:96px 0 120px}
   .eyebrow{
     font-family:"Bricolage Grotesque",sans-serif;
     font-weight:600;letter-spacing:.22em;text-transform:uppercase;
     font-size:.78rem;color:var(--amber);
     display:inline-flex;align-items:center;gap:.6em;
+    text-shadow:0 2px 10px rgba(0,0,0,.55);
   }
   .eyebrow::before{content:"";width:34px;height:2px;background:var(--amber)}
   .hero h1{
@@ -68,6 +74,8 @@
     font-weight:800;
     margin:.35em 0 .1em;
     letter-spacing:-.02em;
+    color:#ffffff;
+    text-shadow:0 3px 18px rgba(0,0,0,.6);
   }
   .script{
     font-family:"Caveat",cursive;
@@ -75,9 +83,14 @@
     color:var(--amber-soft);
     transform:rotate(-2deg);
     display:inline-block;
+    text-shadow:0 2px 12px rgba(0,0,0,.65);
   }
   .hero p.lede{
-    max-width:34ch;font-size:clamp(1.05rem,2.4vw,1.3rem);color:var(--sage);margin-top:1.2em;
+    max-width:34ch;
+    font-size:clamp(1.05rem,2.4vw,1.3rem);
+    color:#f2efe6;
+    margin-top:1.2em;
+    text-shadow:0 2px 10px rgba(0,0,0,.7);
   }
   .hero-cta{margin-top:2.2em;display:flex;flex-wrap:wrap;gap:14px}
   .btn{
@@ -88,7 +101,7 @@
   }
   .btn-call{background:var(--amber);color:var(--ink)}
   .btn-call:hover{background:var(--amber-soft)}
-  .btn-ghost{border:2px solid rgba(242,239,230,.35);color:var(--paper)}
+  .btn-ghost{border:2px solid rgba(242,239,230,.5);color:#ffffff;background:rgba(16,26,21,.35)}
   .btn-ghost:hover{border-color:var(--amber-soft);color:var(--amber-soft)}
 
   section{padding:88px 0}
@@ -107,11 +120,14 @@
   .fact dd small{display:block;font-weight:400;font-size:.92rem;color:#41544a;margin-top:.2em}
 
   .gallery{background:var(--pine-2)}
-  .gal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:2.4em}
-  .gal-grid figure{position:relative;overflow:hidden;border-radius:10px;background:#0d1712;aspect-ratio:4/3}
-  .gal-grid img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
-  .gal-grid figure:hover img{transform:scale(1.045)}
+  .gal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:2.4em;align-items:start}
+  .gal-grid figure{position:relative;overflow:hidden;border-radius:10px;background:#0d1712}
+  .gal-grid img{width:100%;height:auto;display:block}
+  .gal-grid figure:hover img{opacity:.92}
   .gal-note{color:var(--sage);font-style:italic;margin-top:1.4em;font-size:.98rem}
+
+  .video-frame{position:relative;overflow:hidden;border-radius:10px;background:#0d1712;aspect-ratio:16/9}
+  .video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
   .area-list{margin-top:2.2em;display:grid;gap:0;border-top:2px solid rgba(242,239,230,.15)}
   .area-list li{
@@ -152,13 +168,12 @@
   footer{border-top:1px solid rgba(242,239,230,.15);padding:34px 0;color:var(--sage);font-size:.9rem;text-align:center}
 
   @media (max-width:640px){
-    .hero-dog{right:-18vw;opacity:.55}
+    .hero-dog{right:-18vw;opacity:.7}
     .hero-inner{padding:72px 0 340px}
     section{padding:64px 0}
   }
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
-    .gal-grid img{transition:none}
   }
 </style>
 </head>
@@ -167,11 +182,12 @@
 <header class="hero">
   <img class="hero-dog" src="https://i.imgur.com/4jcHT5j.png" alt="Chunka, a black and tan hound mix">
   <div class="hero-glow" aria-hidden="true"></div>
+  <div class="hero-scrim" aria-hidden="true"></div>
   <div class="wrap hero-inner">
     <span class="eyebrow">Missing since November 2025 · Ball Ground, Georgia</span>
     <h1>Come Home,<br>Chunka</h1>
     <span class="script">we haven't stopped looking for you, girl</span>
-    <p class="lede">A 10-year-old black &amp; tan hound mix — about 50 pounds, white on her socks, gray around her muzzle. She could be anywhere from Free Home to Canton.</p>
+    <p class="lede">A 10-year-old black &amp; tan hound mix — about 50 pounds, white on her socks, gray around her muzzle. She could be anywhere — Cumming, Jasper, Waleska, Cartersville, or beyond.</p>
     <div class="hero-cta">
       <a class="btn btn-call" href="tel:+14046672839">📞 Call 404-667-2839</a>
       <a class="btn btn-ghost" href="#gallery">See her photos</a>
@@ -214,30 +230,30 @@
     </div>
     <p class="gal-note">If a photo doesn't load, its Imgur extension may differ — try changing .jpg to .png or .jpeg in that image's address.</p>
 
-    <!-- VIDEOS: paste your YouTube embed links below, one per video, then remove these comment markers
-    <p class="sec-label" style="margin-top:3em">Videos</p>
+    <p class="sec-label" style="margin-top:3em">Video</p>
     <h2>Her little ways</h2>
-    <div class="gal-grid" style="grid-template-columns:1fr">
-      <figure style="aspect-ratio:16/9">
-        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/VIDEO_ID_1"
-          title="Chunka video" frameborder="0" loading="lazy"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    <div class="gal-grid" style="grid-template-columns:1fr;margin-top:1.6em">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed/Rd6Z_b7ygPY"
+          title="Chunka video" loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowfullscreen></iframe>
-      </figure>
+      </div>
     </div>
-    -->
   </div>
 </section>
 
 <section id="area">
   <div class="wrap">
     <p class="sec-label">Where to look</p>
-    <h2>Last seen in Ball Ground — she could be anywhere from Free Home to Canton</h2>
+    <h2>Last seen in Ball Ground — she could be anywhere, to be honest</h2>
     <ul class="area-list">
       <li><span class="n">01</span><span><strong>Ball Ground, GA</strong> — her home; she went missing from here in November 2025.</span></li>
       <li><span class="n">02</span><span><strong>McGraw Ford Wildlife Management Area</strong> — we live right by it; woods, water, and trails she knows.</span></li>
-      <li><span class="n">03</span><span><strong>Free Home</strong> — within her roaming range.</span></li>
-      <li><span class="n">04</span><span><strong>Canton, GA</strong> — the far edge of where she could have traveled.</span></li>
+      <li><span class="n">03</span><span><strong>Free Home &amp; Canton</strong> — well within her roaming range.</span></li>
+      <li><span class="n">04</span><span><strong>Waleska &amp; Cumming</strong> — she could easily have traveled this far.</span></li>
+      <li><span class="n">05</span><span><strong>Jasper &amp; Cartersville</strong> — the far edges, but check here too.</span></li>
+      <li><span class="n">06</span><span><strong>Anywhere in between</strong> — honestly, she could be anywhere. If you're anywhere in Cherokee or surrounding counties, keep an eye out.</span></li>
     </ul>
   </div>
 </section>
@@ -292,18 +308,3 @@
 
 </body>
 </html>
-```
-
-## Deploy checklist
-
-1. Create a repo (e.g. `come-home-chunka`)
-2. Add this file as `index.html` at the repo root
-3. Commit and push to `main`
-4. Repo Settings → Pages → Source: "Deploy from a branch" → Branch: `main` / root → Save
-5. Live in a minute or two at `https://YOURUSERNAME.github.io/come-home-chunka/`
-
-## Notes
-
-- **Hero image**: the transparent cutout sits large on the right of the hero with an amber glow; on phones it fades back so text stays readable.
-- **Image extensions**: gallery photos are set to `.jpg` — if any shows broken, right-click it on Imgur → "Copy image address" and swap the URL in.
-- **Videos**: a commented-out block sits in the gallery section. Upload to YouTube (Unlisted works and still embeds), then replace `VIDEO_ID_1` with each video's ID and remove the comment markers around the block.
